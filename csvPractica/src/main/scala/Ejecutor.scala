@@ -209,6 +209,10 @@ object Ejecutor {
       .transact(xa).unsafeRunSync()
     println("Todas las películas:")
     peliculas.foreach(println)
+    
+    val nPeliculasUpdate = updatePelicula(994132, "UPDATE SOMBRA 2", false, 4750000L,
+      "http://homepage.com", "EN", "Polita", "Descripción de la película", 47500000L,"/poster_pelicula.jpg", "2023-01-01", 100000000L, 1299, "Estrenada", "Un eslogan", "Título", false, 1500, 7, 666
+    )
 
   }
 

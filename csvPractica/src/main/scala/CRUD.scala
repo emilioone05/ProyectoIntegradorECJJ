@@ -58,20 +58,20 @@ object CRUD {
     """.query[(Int, String, Boolean, Long, Option[String], Option[String], Option[String], Option[String], Long, Option[String], Option[String], Long, Int, Option[String], Option[String], Option[String], Boolean, Int, Int, Option[Int])]
       .to[List]
   }
-
   def
   updatePelicula(pelicula: (Int, String, Boolean, Long, String, String, String, String, Long, String, String, Long, Int, String, String, String, Boolean, Int, Int, Int)): doobie.Update0 = {
     sql"""
-      UPDATE pelicula
-      SET imdb_id = ${pelicula._2}, adult = ${pelicula._3}, budget = ${pelicula._4}, homepage = ${pelicula._5},
-          original_language = ${pelicula._6}, original_title = ${pelicula._7}, overview = ${pelicula._8},
-          popularity = ${pelicula._9}, poster_path = ${pelicula._10}, release_date = ${pelicula._11},
-          revenue = ${pelicula._12}, runtime = ${pelicula._13}, estado = ${pelicula._14},
-          tagline = ${pelicula._15}, title = ${pelicula._16}, video = ${pelicula._17},
-          vote_count = ${pelicula._18}, vote_average = ${pelicula._19}, collection_id = ${pelicula._20}
-      WHERE pelicula_id = ${pelicula._1}
-    """.update
+        UPDATE pelicula
+        SET imdb_id = ${pelicula._2}, adult = ${pelicula._3}, budget = ${pelicula._4}, homepage = ${pelicula._5},
+            original_language = ${pelicula._6}, original_title = ${pelicula._7}, overview = ${pelicula._8},
+            popularity = ${pelicula._9}, poster_path = ${pelicula._10}, release_date = ${pelicula._11},
+            revenue = ${pelicula._12}, runtime = ${pelicula._13}, estado = ${pelicula._14},
+            tagline = ${pelicula._15}, title = ${pelicula._16}, video = ${pelicula._17},
+            vote_count = ${pelicula._18}, vote_average = ${pelicula._19}, collection_id = ${pelicula._20}
+        WHERE pelicula_id = ${pelicula._1}
+      """.update
   }
+  
 
   def deletePelicula(id: Int): doobie.Update0 = {
     sql"DELETE FROM pelicula WHERE pelicula_id = $id".update
