@@ -1,4 +1,3 @@
-import PobladorFINAL.escapeSQL
 import doobie.*
 import doobie.implicits.*
 import cats.*
@@ -12,55 +11,19 @@ object ConstructorBD {
       driver = "com.mysql.cj.jdbc.Driver", // JDBC driver
       url = "jdbc:mysql://localhost:3306", // URL de conexión
       user = "root", // Nombre de la base de datos
-      password = "UTPLpy", // Password
+      password = "935475", // Password
       logHandler = None // Manejo de la información de Log
     )
     val x = crear().transact(xa).unsafeRunSync()
     
   }
 
-  def insertCollection(listaTuplas: List[(Int, String, String, String)]): ConnectionIO[Int] = {
-    listaTuplas.traverse { case (collection_id, nombre, poster_path, backdrop_path) =>
-      sql"""
-        INSERT INTO collection (collection_id, nombre, poster_path, backdrop_path)
-        VALUES ($collection_id, $nombre, $poster_path, $backdrop_path)
-      """.update.run
-    }.map(_.sum)
-  }
-
-
-
-
-  def insertCOL(listaTuplas: List[(Int, String, String, String)]): ConnectionIO[Int] = {
-    listaTuplas.traverse { case (collection_id, nombre, poster_path, backdrop_path) =>
-      sql"""
-        INSERT INTO collection (collection_id, nombre, poster_path, backdrop_path)
-        VALUES ($collection_id, $nombre, $poster_path, $backdrop_path)
-      """.update.run
-    }.map(_.sum) // Suma la cantidad de filas insertadas
-  }
-  def insertCOL2(listaTuplas: List[(Int, String, String, String)]): Unit = {
-    def insertar(tupla: (Int, String, String, String)): ConnectionIO[Int] = {
-      val collection_id = escapeSQL(tupla._1.toString)
-      val nombre = escapeSQL(tupla._2)
-      val poster_path = escapeSQL(tupla._3)
-      val backdrop_path = escapeSQL(tupla._4)
-      sql"INSERT INTO collection (collection_id, nombre, poster_path,backdrop_path) VALUES ($collection_id,'$nombre','$poster_path','$backdrop_path');".update.run
-    }
-    listaTuplas.foreach { fila =>
-      insertar(fila)
-    }
-  }
-
-
-
-
   def crear(): ConnectionIO[Int] =(
 
-    sql"""CREATE SCHEMA IF NOT EXISTS pruebaF3
+    sql"""CREATE SCHEMA IF NOT EXISTS presentacion2
          |COLLATE = utf8_general_ci;"""
       .stripMargin.update.run *>
-      sql"""USE pruebaF3;"""
+      sql"""USE presentacion2;"""
         .stripMargin
         .update.run *>
 
