@@ -244,54 +244,6 @@ object Ejecutor {
 
 
 
-    /*// CRUD para Collection
-    try {
-     val newCollection = CRUD.insertCollection((62010, "Ejemplo def", "Pdcito", "/Jeankquita"))
-        .transact(xa).unsafeRunSync()
-      println(s"Colección insertada: $newCollection")
-      val collections = CRUD.listAllCollections()
-        .transact(xa).unsafeRunSync()
-      collections.foreach(println)
-    } catch {
-      case e: SQLException =>
-        println(s"Error de SQL: ${e.getMessage}")
-      case e: Exception =>
-        println(s"Error inesperado: ${e.getMessage}")
-    }
-    try {
-      // Intentar actualizar la colección
-      val nUpdateCollection = updateCollection(123492, "lol", "Pdf", "aypdf")
-        .run
-        .transact(xa)
-        .unsafeRunSync()
-      if (nUpdateCollection == 0) {
-        println("No se ha encontrado un ID para actualizar.")
-      } else {
-        println(s"UPDATE EXITOSO: $nUpdateCollection ")
-      }
-    } catch {
-      case e: Exception =>
-        // Manejar cualquier excepción que ocurra
-        println(s"Ocurrió un error durante la actualización: ${e.getMessage}")
-        e.printStackTrace() // Opcional: imprimir el stack trace para depuración
-    }
-    // CRUD para Pelicula
-     val newPelicula = CRUD.insertPelicula((
-        994132, "sombraasombrosa", false, 50000L,
-        "http://homepage.com", "EN", "Chocobo", "Descripción de la película", 5000000L,"/poster_pelicula.jpg", "2023-01-01", 100000000L, 1299, "Estrenada", "Un eslogan", "Título", false, 1500, 7, 666
-      ))
-      .run
-      .transact(xa).unsafeRunSync()
-    println(s"Película insertada: $newPelicula")
-    val peliculas = CRUD.listAllPeliculas()
-      .transact(xa).unsafeRunSync()
-    println("Todas las películas:")
-    peliculas.foreach(println)
-
-    val nPeliculasUpdate = updatePelicula(994132, "UPDATE SOMBRA 2", false, 4750000L,
-      "http://homepage.com", "EN", "Polita", "Descripción de la película", 47500000L,"/poster_pelicula.jpg", "2023-01-01", 100000000L, 1299, "Estrenada", "Un eslogan", "Título", false, 1500, 7, 666
-    )
-  */
   }
 
 
