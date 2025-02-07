@@ -20,10 +20,10 @@ object ConstructorBD {
 
   def crear(): ConnectionIO[Int] =(
 
-    sql"""CREATE SCHEMA IF NOT EXISTS presentacion2
+    sql"""CREATE SCHEMA IF NOT EXISTS presentacionFinal
          |COLLATE = utf8_general_ci;"""
       .stripMargin.update.run *>
-      sql"""USE presentacion2;"""
+      sql"""USE presentacionFinal;"""
         .stripMargin
         .update.run *>
 

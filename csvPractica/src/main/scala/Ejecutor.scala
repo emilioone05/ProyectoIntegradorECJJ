@@ -6,17 +6,18 @@ import ConstructorBD.*
 import LectorCSV.lectura
 import cats.effect.IO
 import doobie.util.transactor.Transactor
-import doobie. implicits. toConnectionIOOps
-import doobie. syntax. all. toConnectionIOOps
-import doobie. syntax. connectionio. toConnectionIOOps
-import cats. effect. unsafe. implicits. global
-import scala.util.{Try, Success, Failure}
-import java.sql.SQLException
-object Ejecutor {
+import doobie.implicits.toConnectionIOOps
+import doobie.syntax.all.toConnectionIOOps
+import doobie.syntax.connectionio.toConnectionIOOps
+import cats.effect.unsafe.implicits.global
 
+import scala.util.{Failure, Success, Try}
+import java.sql.SQLException
+import scala.io.StdIn
+object Ejecutor {
   @main
   def main(): Unit = {
-    /*
+    
     val dataMap: List[Map[String, String]] = lectura()
 
     //=========LIMPIAR DATOS========
@@ -158,7 +159,7 @@ object Ejecutor {
 
     insertarUsuarioDB(usuario)
     insertarCalificacionDB(calificacion)
-    */
+    
     val xa = Transactor.fromDriverManager[IO](
       driver = "com.mysql.cj.jdbc.Driver",
       url = "jdbc:mysql://localhost:3306/pf2",
@@ -166,7 +167,84 @@ object Ejecutor {
       password = "935475",
       logHandler = None
     )
-    // CRUD para Collection
+    while (true) {
+      println(
+        """====== BIENVENIDO ======
+          |(1) Consultar pelicula segun id
+          |(2) Consultar pelicula segun titulo
+          |(3) Consultar peliculas segun genero
+          |(4) Consultar peliculas segun collection_id
+          |(5) Insertar Colection
+          |(6) Insertar Pelicula
+          |(0) Salir
+          |""".stripMargin)
+
+      print("Ingrese una opcion: ")
+      var opcion = StdIn.readInt()
+      opcion match
+        case 1 =>
+          println("Inserte el id a consultar")
+          var consultaID = StdIn.readInt()
+          var x = consultaXid(consultaID).transact(xa).unsafeRunSync()
+          println("Todas las películas:")
+          x.foreach(println)
+
+        case 2 =>
+          println("Inserte el titulo a consultar")
+          var consultaTITLE = StdIn.readLine()
+          var x = consultaXtitulo(consultaTITLE).transact(xa).unsafeRunSync()
+          println("Todas las películas:")
+          x.foreach(println)
+
+        case 3 =>
+          println("Inserte el genero a consultar")
+          var consultaGENRE = StdIn.readInt()
+          var x = consultaXgenero(consultaGENRE).transact(xa).unsafeRunSync()
+          println("Todas las películas:")
+          x.foreach(println)
+
+        case 4 =>
+          println("Inserte el id a consultar")
+          var consultaCOLID = StdIn.readLine()
+          var x = consultaXcolection(consultaCOLID).transact(xa).unsafeRunSync()
+          println("Todas las películas:")
+          x.foreach(println)
+        case 5 =>
+          print("Ingrese una collection_id: ")
+          var collection_idCOL = StdIn.readInt()
+          print("Ingrese un nombre: ")
+          var nombreCOL = StdIn.readLine()
+          print("Ingrese un poster_path: ")
+          var poster_pathCOL = StdIn.readLine()
+          print("Ingrese un backdrop_path: ")
+          var backdrop_pathCOL = StdIn.readLine()
+          insertCollection(collection_idCOL,nombreCOL,poster_pathCOL,backdrop_pathCOL).transact(xa).unsafeRunSync()
+          println("--COLLECTION INSERTADA--")
+        case 6 =>
+          println(
+            """====== ESCOGA QUE PELICULA DESEA INGRESAR ======
+              |(1) Pelicula "1"
+              |(2) Pelicula "2"
+              |(3) Pelicula "3"
+              |""".stripMargin)
+          print("Ingrese una opcion: ")
+          var opcion2 = StdIn.readInt()
+          opcion2 match
+            case 1 =>
+              insertPelicula1().transact(xa).unsafeRunSync()
+            case 2=>
+              insertPelicula2().transact(xa).unsafeRunSync()
+            case 3 =>
+              insertPelicula3().transact(xa).unsafeRunSync()
+
+        case _  =>
+          println("FINALIZANDO PROGRAMA")
+          return
+    }
+
+
+
+    /*// CRUD para Collection
     try {
      val newCollection = CRUD.insertCollection((62010, "Ejemplo def", "Pdcito", "/Jeankquita"))
         .transact(xa).unsafeRunSync()
@@ -209,11 +287,11 @@ object Ejecutor {
       .transact(xa).unsafeRunSync()
     println("Todas las películas:")
     peliculas.foreach(println)
-    
+
     val nPeliculasUpdate = updatePelicula(994132, "UPDATE SOMBRA 2", false, 4750000L,
       "http://homepage.com", "EN", "Polita", "Descripción de la película", 47500000L,"/poster_pelicula.jpg", "2023-01-01", 100000000L, 1299, "Estrenada", "Un eslogan", "Título", false, 1500, 7, 666
     )
-
+  */
   }
 
 
